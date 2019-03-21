@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('threads.index');
 });
+
+Route::get('/threads/{id}', function ($id) {
+    $result = \App\Thread::findOrFail($id);
+    return view('threads.view', compact('result'));
+});
+
