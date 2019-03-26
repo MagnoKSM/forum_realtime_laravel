@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use Illuminate\Http\Request;
+use App\Http\Requests\ThreadsRequest;
 
 class ThreadsController extends Controller
 {
@@ -22,10 +23,9 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ThreadsRequest $request)
     {
         $thread = new Thread;
         $thread->title = $request->input('title');
@@ -39,13 +39,17 @@ class ThreadsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Thread $thread)
+    public function update(ThreadsRequest $request, Thread $thread)
     {
-        //
+        $this->authorize('update', $thread);
+        $thread->title = $request->input('title');
+        $thread->body = $request->input('body');
+        $thread->update();
+
+        return redirect('/threads/' . $thread->id);
     }
 
     /**

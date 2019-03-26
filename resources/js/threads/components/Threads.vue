@@ -7,7 +7,7 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Thread</th>
+                    <th>Question</th>
                     <th>Reply</th>
                     <th></th>
                 </tr>
